@@ -67,11 +67,11 @@ public class ArmyCalculationServiceTest {
     public void test_calculateRandomArmy_randomness() {
         final long ARMY_AMOUNT = Long.MAX_VALUE;
         final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
-        final List<Long> collect = armyDto.troops().stream().map(Troop::getAmount).toList();
+        final List<Long> randomArmyAsAmountsList = armyDto.troops().stream().map(Troop::getAmount).toList();
         for (int i = 0; i < 10000; i++) {
             ArmyDto randomArmy = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
-            List<Long> newcollected = randomArmy.troops().stream().map(Troop::getAmount).toList();
-            assertFalse(collect.containsAll(newcollected));
+            List<Long> anotherRandomArmyAsAmountsList = randomArmy.troops().stream().map(Troop::getAmount).toList();
+            assertFalse(randomArmyAsAmountsList.containsAll(anotherRandomArmyAsAmountsList));
         }
     }
 }
