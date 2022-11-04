@@ -23,7 +23,7 @@ public class ArmyCalculationService {
         if (amountOfTroops < troops.size()) {
             throw new IllegalArmySizeException("the minimum army-size is " + amountOfTroops);
         }
-        //shuffle troops so that the maximum-troop-range is equal for all troops
+        //shuffle troops so that the maximum-troop-boundary is possible for all troops
         Collections.shuffle(troops);
 
         final Random random = new Random();
