@@ -3,8 +3,17 @@ This service provides an endpoint to create armies of swordsman, spearman and ar
 
 ## System-Requirements
 - Java 18
+- Maven 3.8.6
 
-## Start-up
+## Build, test and run the application
+build and test the application:
+
+    mvn clean install
+
+just build the application:
+
+    mvn clean install -DskipTests
+
 start the application:
 
     java -jar ./target/calculator-0.0.1-SNAPSHOT.jar
