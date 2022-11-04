@@ -16,7 +16,7 @@ public class ArmyCalculationController {
     }
 
     @GetMapping(value = "/randomArmy", produces = "application/json")
-    public ArmyDto createRandomArmy(@RequestParam("amountOfTroops") int amountOfTroops) {
+    public ArmyDto createRandomArmy(@RequestParam("amountOfTroops") long amountOfTroops) {
         return armyCalculationService.createRandomArmy(amountOfTroops);
     }
 
