@@ -61,7 +61,7 @@ public class ArmyCalculationServiceTest {
 
     /*
     This test should not be used in a productive environment because this test fails
-    if 2 random armies are equal. (even if is highly unlikely)
+    if 2 random armies are equal. (even if this highly unlikely)
      */
     @Test
     public void test_calculateRandomArmy_randomness() {
