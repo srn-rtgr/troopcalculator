@@ -1,13 +1,13 @@
-package de.goodgames.troop.calculator;
+package de.goodgames.army.calculator;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CalculatorApplication {
+public class ArmyCalculatorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CalculatorApplication.class, args);
+		SpringApplication.run(ArmyCalculatorApplication.class, args);
 	}
 
 }

@@ -1,0 +1,78 @@
+package de.goodgames.army.calculator;
+
+import de.goodgames.army.calculator.dto.ArmyDto;
+import de.goodgames.army.calculator.entity.Troop;
+import de.goodgames.army.calculator.exception.IllegalArmySizeException;
+import de.goodgames.army.calculator.service.ArmyCalculationService;
+import de.goodgames.army.calculator.service.ArmyFactoryService;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@ExtendWith(MockitoExtension.class)
+public class ArmyCalculationServiceTest {
+    final ArmyFactoryService armyFactoryService = new ArmyFactoryService();
+    final ArmyCalculationService armyCalculationService = new ArmyCalculationService(armyFactoryService);
+
+    @Test
+    public void test_calculateRandomArmy_sum100() {
+        final long ARMY_AMOUNT = 100;
+        final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
+        final long sumOfTroops = armyDto.troops().stream().mapToLong(Troop::getAmount).sum();
+        assertEquals(ARMY_AMOUNT, sumOfTroops);
+    }
+
+    @Test
+    public void test_calculateRandomArmy_sum1000() {
+        final long ARMY_AMOUNT = 1000;
+        final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
+        final long sumOfTroops = armyDto.troops().stream().mapToLong(Troop::getAmount).sum();
+        assertEquals(ARMY_AMOUNT, sumOfTroops);
+    }
+
+    @Test
+    public void test_calculateRandomArmy_sum10000() {
+        final long ARMY_AMOUNT = 10000;
+        final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
+        final long sumOfTroops = armyDto.troops().stream().mapToLong(Troop::getAmount).sum();
+        assertEquals(ARMY_AMOUNT, sumOfTroops);
+    }
+
+    @Test
+    public void test_calculateRandomArmy_armyTooSmall() {
+        assertThrows(IllegalArmySizeException.class, () -> {
+            armyCalculationService.createRandomArmy(1);
+        });
+    }
+
+    @Test
+    public void test_calculateRandomArmy_minArmyAmount() {
+        final long ARMY_AMOUNT = 3;
+        final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
+        final long sumOfTroops = armyDto.troops().stream().mapToLong(Troop::getAmount).sum();
+        assertEquals(ARMY_AMOUNT, sumOfTroops);
+        armyDto.troops().stream().mapToLong(Troop::getAmount).forEach(amountOfTroop -> {
+            assertEquals(1, amountOfTroop);
+        });
+    }
+
+    /*
+    This test should not be used in a productive environment because - even it is highly unlikely - this test fails
+    if 2 random armies are equal.
+     */
+    @Test
+    public void test_calculateRandomArmy_randomness() {
+        final long ARMY_AMOUNT = Long.MAX_VALUE;
+        final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
+        final List<Long> collect = armyDto.troops().stream().map(Troop::getAmount).toList();
+        for (int i = 0; i < 10000; i++) {
+            ArmyDto randomArmy = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
+            List<Long> newcollected = randomArmy.troops().stream().map(Troop::getAmount).toList();
+            assertFalse(collect.containsAll(newcollected));
+        }
+    }
+}
