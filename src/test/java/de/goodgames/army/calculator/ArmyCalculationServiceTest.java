@@ -20,26 +20,25 @@ public class ArmyCalculationServiceTest {
 
     @Test
     public void test_calculateRandomArmy_sum100() {
-        final long ARMY_AMOUNT = 100;
-        final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
-        final long sumOfTroops = armyDto.troops().stream().mapToLong(Troop::getAmount).sum();
-        assertEquals(ARMY_AMOUNT, sumOfTroops);
+        checkSumOfTroops(100);
     }
 
     @Test
     public void test_calculateRandomArmy_sum1000() {
-        final long ARMY_AMOUNT = 1000;
-        final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
-        final long sumOfTroops = armyDto.troops().stream().mapToLong(Troop::getAmount).sum();
-        assertEquals(ARMY_AMOUNT, sumOfTroops);
+        checkSumOfTroops(1000);
+
     }
 
     @Test
     public void test_calculateRandomArmy_sum10000() {
-        final long ARMY_AMOUNT = 10000;
-        final ArmyDto armyDto = armyCalculationService.createRandomArmy(ARMY_AMOUNT);
+        checkSumOfTroops(10000);
+
+    }
+
+    private void checkSumOfTroops(long armyAmount) {
+        final ArmyDto armyDto = armyCalculationService.createRandomArmy(armyAmount);
         final long sumOfTroops = armyDto.troops().stream().mapToLong(Troop::getAmount).sum();
-        assertEquals(ARMY_AMOUNT, sumOfTroops);
+        assertEquals(armyAmount, sumOfTroops);
     }
 
     @Test
